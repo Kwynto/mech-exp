@@ -69,7 +69,7 @@ func startAnalize(slStInput []intypes.TStGame, iGame, iBorder int) {
 		}
 	}
 
-	fmt.Println(incolor.StringBlueH("Номера зоны риска:"))
+	fmt.Println(incolor.StringRedH("Номера зоны риска:"))
 	for k, v := range mStatNumbers {
 		if v.Wrong >= iBorder {
 			sMsg := fmt.Sprintf("Номер %s wrong = %d", incolor.StringRed("%d", k), v.Wrong)
