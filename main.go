@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/Kwynto/mech-exp/internal/defective"
 	"github.com/Kwynto/mech-exp/internal/intypes"
 	"github.com/Kwynto/mech-exp/pkg/incolor"
 )
@@ -174,7 +175,8 @@ func main() {
 			showBase()
 		case 3:
 			enterData()
+		case 4:
+			defective.Start(SlStGames)
 		}
-
 	}
 }
