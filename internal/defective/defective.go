@@ -10,10 +10,13 @@ import (
 )
 
 const (
-	MAX_NUMBER     = 40
-	PREMIUM_WIN    = 16
-	ORDINARI_WIN   = 17
-	DEFAULT_BORDER = 2
+	MAX_NUMBER   = 40
+	PREMIUM_WIN  = 16
+	ORDINARI_WIN = 38
+
+	DEFAULT_BORDER  = 2
+	NUMBERS_IN_GAME = 40
+	ADD_TO_BORER    = 1
 )
 
 var SlStGames []intypes.TStGame
@@ -28,7 +31,57 @@ func initMapNumbers() intypes.TMapNembers {
 			Wrong:       0,
 		}
 	}
+
 	return initMap
+}
+
+func spaceSimbol(k int) string {
+	if (k / 10) >= 1 {
+		return ""
+	}
+	return " "
+}
+
+func preAnalize(slStInput []intypes.TStGame, iGame int) int {
+	var (
+		slWork []intypes.TStGame
+		// iAllNumbers int = 0
+		iAllWrong int = 0
+		iBorder   int = 0
+	)
+
+	slStPrepear := slices.Clone(slStInput)
+	slices.Reverse(slStPrepear)
+
+	if iGame < 0 {
+		iGame = 0
+	}
+
+	iLenSlIn := len(slStPrepear)
+	if iLenSlIn < iGame {
+		iGame = iLenSlIn
+	}
+
+	if iGame == 0 {
+		slWork = slStPrepear
+	} else {
+		slWork = slStPrepear[0:iGame]
+	}
+
+	for _, stGame := range slWork {
+		// iWinCount := len(stGame.Wins)
+		iWrongCount := len(stGame.Wrong)
+		// iAllNumbers = iAllNumbers + iWinCount + iWrongCount
+		iAllWrong = iAllWrong + iWrongCount
+	}
+
+	iBorder = iAllWrong / NUMBERS_IN_GAME
+	if (iAllWrong % NUMBERS_IN_GAME) > 0 {
+		iBorder = iBorder + ADD_TO_BORER
+	}
+	iBorder = iBorder + ADD_TO_BORER
+
+	return iBorder
 }
 
 func startAnalize(slStInput []intypes.TStGame, iGame, iBorder int) {
@@ -55,6 +108,8 @@ func startAnalize(slStInput []intypes.TStGame, iGame, iBorder int) {
 		slWork = slStPrepear[0:iGame]
 	}
 
+	fmt.Println("")
+
 	// for _, v := range slWork {
 	// 	fmt.Println(v.Game)
 	// }
@@ -62,6 +117,22 @@ func startAnalize(slStInput []intypes.TStGame, iGame, iBorder int) {
 	mStatNumbers := initMapNumbers()
 
 	for _, stGame := range slWork {
+		for i01, iWinNum := range stGame.Wins {
+			if i01 < PREMIUM_WIN {
+				tempMStatNumber := mStatNumbers[iWinNum]
+				tempMStatNumber.PremiumWin = tempMStatNumber.PremiumWin + 1
+				mStatNumbers[iWinNum] = tempMStatNumber
+			} else if (i01 >= PREMIUM_WIN) && (i01 < ORDINARI_WIN) {
+				tempMStatNumber := mStatNumbers[iWinNum]
+				tempMStatNumber.OrdinariWin = tempMStatNumber.OrdinariWin + 1
+				mStatNumbers[iWinNum] = tempMStatNumber
+			} else {
+				tempMStatNumber := mStatNumbers[iWinNum]
+				tempMStatNumber.Wrong = tempMStatNumber.Wrong + 1
+				mStatNumbers[iWinNum] = tempMStatNumber
+			}
+		}
+
 		for _, iWrongNum := range stGame.Wrong {
 			tempMStatNumber := mStatNumbers[iWrongNum]
 			tempMStatNumber.Wrong = tempMStatNumber.Wrong + 1
@@ -69,11 +140,33 @@ func startAnalize(slStInput []intypes.TStGame, iGame, iBorder int) {
 		}
 	}
 
+	fmt.Println(incolor.StringGreenH("Премиальные номера:"))
+	for i := range NUMBERS_IN_GAME {
+		k1 := i + 1
+		for k, v := range mStatNumbers {
+			if k == k1 {
+				if v.Wrong < iBorder {
+					if v.PremiumWin > (iBorder * 4) {
+						sMsg := fmt.Sprintf("Номер %s%s premium = %d", spaceSimbol(k), incolor.StringGreen("%d", k), v.PremiumWin)
+						fmt.Println(sMsg)
+					}
+				}
+			}
+		}
+	}
+
+	fmt.Println("")
+
 	fmt.Println(incolor.StringRedH("Номера зоны риска:"))
-	for k, v := range mStatNumbers {
-		if v.Wrong >= iBorder {
-			sMsg := fmt.Sprintf("Номер %s wrong = %d", incolor.StringRed("%d", k), v.Wrong)
-			fmt.Println(sMsg)
+	for i := range NUMBERS_IN_GAME {
+		k1 := i + 1
+		for k, v := range mStatNumbers {
+			if k == k1 {
+				if v.Wrong >= iBorder {
+					sMsg := fmt.Sprintf("Номер %s%s wrong = %d", spaceSimbol(k), incolor.StringRed("%d", k), v.Wrong)
+					fmt.Println(sMsg)
+				}
+			}
 		}
 	}
 
@@ -93,7 +186,9 @@ func Start(slStInput []intypes.TStGame) {
 		fmt.Println("Conversion failed:", err1)
 	}
 
-	fmt.Print(incolor.StringMagenta("Граница повторений (%d или более) > ", DEFAULT_BORDER))
+	iPreBorder := preAnalize(slStInput, iGame)
+
+	fmt.Print(incolor.StringMagenta("Граница повторений (%d или более) (сейчас рекомендация %d повторений) > ", DEFAULT_BORDER, iPreBorder))
 	fmt.Scanf("%v\n", &sBorder)
 	iBorder, err2 := strconv.Atoi(sBorder)
 	if err2 != nil {
