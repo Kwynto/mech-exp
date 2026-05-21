@@ -12,7 +12,7 @@ import (
 const (
 	MAX_NUMBER   = 40
 	PREMIUM_WIN  = 16
-	ORDINARI_WIN = 38
+	ORDINARI_WIN = 37
 
 	DEFAULT_BORDER  = 2
 	NUMBERS_IN_GAME = 40
@@ -44,8 +44,7 @@ func spaceSimbol(k int) string {
 
 func preAnalize(slStInput []intypes.TStGame, iGame int) int {
 	var (
-		slWork []intypes.TStGame
-		// iAllNumbers int = 0
+		slWork    []intypes.TStGame
 		iAllWrong int = 0
 		iBorder   int = 0
 	)
@@ -69,9 +68,7 @@ func preAnalize(slStInput []intypes.TStGame, iGame int) int {
 	}
 
 	for _, stGame := range slWork {
-		// iWinCount := len(stGame.Wins)
 		iWrongCount := len(stGame.Wrong)
-		// iAllNumbers = iAllNumbers + iWinCount + iWrongCount
 		iAllWrong = iAllWrong + iWrongCount
 	}
 
@@ -109,10 +106,6 @@ func startAnalize(slStInput []intypes.TStGame, iGame, iBorder int) {
 	}
 
 	fmt.Println("")
-
-	// for _, v := range slWork {
-	// 	fmt.Println(v.Game)
-	// }
 
 	mStatNumbers := initMapNumbers()
 
