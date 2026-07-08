@@ -214,7 +214,7 @@ func Start(slStInput []intypes.TStGame) {
 
 	SlStGames = slStInput
 
-	fmt.Println(incolor.StringBlue("Баловый анализ тенденции результатов:"))
+	fmt.Println(incolor.StringBlue("Балловый анализ тенденции результатов:"))
 
 	fmt.Print(incolor.StringMagenta("Кол-во последних тиражей для анализа (0 для всех тиражей) > "))
 	fmt.Scanf("%v\n", &sGame)
