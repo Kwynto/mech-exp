@@ -100,17 +100,27 @@ func startAnalize(slStInput []intypes.TStGame, iGame int) {
 		}
 
 		// формируем срез отчета по баллам за выбранный раунд
-		if iGame == stGame.Game {
-			// fmt.Println(mScorePoints)
-			// fmt.Println(" ")
-			for i := 1; i < MAX_NUMBER+1; i++ {
-				tempNum := mScorePoints[i]
-				// fmt.Println(tempNum.Number, ": ", tempNum.Score)
-				fmt.Println(tempNum.Score)
-			}
+		// if iGame == stGame.Game {
+		// 	// fmt.Println(mScorePoints)
+		// 	// fmt.Println(" ")
+		// 	for i := 1; i < MAX_NUMBER+1; i++ {
+		// 		tempNum := mScorePoints[i]
+		// 		// fmt.Println(tempNum.Number, ": ", tempNum.Score)
+		// 		fmt.Println(tempNum.Score)
+		// 	}
+		// }
+
+		// формируем срез отчета по балам за текущий раунд
+		s1 := fmt.Sprint(stGame.Game)
+		for i := 1; i < MAX_NUMBER+1; i++ {
+			tempNum := mScorePoints[i]
+			s1 = fmt.Sprint(s1, " ", tempNum.Score)
 		}
+		fmt.Println(s1)
 
 	}
+
+	_ = iGame
 }
 
 func Start(slStInput []intypes.TStGame) {
