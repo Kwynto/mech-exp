@@ -13,3 +13,10 @@ type TStStatNumber struct {
 }
 
 type TMapNembers map[int]TStStatNumber
+
+type TPoint struct {
+	Number int
+	Score  int
+}
+
+type TMapPoints map[int]TPoint

@@ -8,6 +8,9 @@ import (
 
 	"github.com/Kwynto/mech-exp/internal/defective"
 	"github.com/Kwynto/mech-exp/internal/intypes"
+	"github.com/Kwynto/mech-exp/internal/pointdanger"
+	"github.com/Kwynto/mech-exp/internal/shortnegative"
+	"github.com/Kwynto/mech-exp/internal/waveanalysis"
 	"github.com/Kwynto/mech-exp/pkg/incolor"
 )
 
@@ -31,6 +34,9 @@ func info() {
 	fmt.Println(incolor.StringMagenta("2"), "- показать базу тиражей")
 	fmt.Println(incolor.StringMagenta("3"), "- добавить данные последнего тиража")
 	fmt.Println(incolor.StringMagenta("4"), "- сделать дефектный анализ")
+	fmt.Println(incolor.StringMagenta("5"), "- негативное повторение")
+	fmt.Println(incolor.StringMagenta("6"), "- балловый анализ")
+	fmt.Println(incolor.StringMagenta("7"), "- волновой анализ")
 }
 
 func convInsideFormat(sData string) []intypes.TStGame {
@@ -177,6 +183,12 @@ func main() {
 			enterData()
 		case 4:
 			defective.Start(SlStGames)
+		case 5:
+			shortnegative.Start(SlStGames)
+		case 6:
+			pointdanger.Start(SlStGames)
+		case 7:
+			waveanalysis.Start(SlStGames)
 		}
 	}
 }
