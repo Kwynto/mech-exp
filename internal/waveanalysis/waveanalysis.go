@@ -3,7 +3,6 @@ package waveanalysis
 import (
 	"fmt"
 	"slices"
-	"strconv"
 
 	"github.com/Kwynto/mech-exp/internal/intypes"
 	"github.com/Kwynto/mech-exp/pkg/incolor"
@@ -18,8 +17,6 @@ const (
 	NUMBERS_IN_GAME = 40
 	ADD_TO_BORER    = 1
 )
-
-// var SlStGames []intypes.TStGame
 
 func initMapNumbers() intypes.TMapNembers {
 	initMap := make(intypes.TMapNembers, 40)
@@ -49,14 +46,7 @@ func initMapPoint() intypes.TMapPoints {
 	return initMap
 }
 
-// func spaceSimbol(k int) string {
-// 	if (k / 10) >= 1 {
-// 		return ""
-// 	}
-// 	return " "
-// }
-
-func startAnalize(slStInput []intypes.TStGame, iGame int) {
+func startAnalize(slStInput []intypes.TStGame) {
 	var slWork []intypes.TStGame
 
 	slWork = slices.Clone(slStInput)
@@ -99,17 +89,6 @@ func startAnalize(slStInput []intypes.TStGame, iGame int) {
 			}
 		}
 
-		// формируем срез отчета по баллам за выбранный раунд
-		// if iGame == stGame.Game {
-		// 	// fmt.Println(mScorePoints)
-		// 	// fmt.Println(" ")
-		// 	for i := 1; i < MAX_NUMBER+1; i++ {
-		// 		tempNum := mScorePoints[i]
-		// 		// fmt.Println(tempNum.Number, ": ", tempNum.Score)
-		// 		fmt.Println(tempNum.Score)
-		// 	}
-		// }
-
 		// формируем срез отчета по балам за текущий раунд
 		s1 := fmt.Sprint(stGame.Game)
 		for i := 1; i < MAX_NUMBER+1; i++ {
@@ -120,22 +99,12 @@ func startAnalize(slStInput []intypes.TStGame, iGame int) {
 
 	}
 
-	_ = iGame
 }
 
 func Start(slStInput []intypes.TStGame) {
-	var sGame string
-
 	fmt.Println(incolor.StringBlue("Координаты для графика волнового анализа:"))
-
-	fmt.Print(incolor.StringMagenta("Номер раунда > "))
-	fmt.Scanf("%v\n", &sGame)
-	iGame, err1 := strconv.Atoi(sGame)
-	if err1 != nil {
-		fmt.Println("Conversion failed:", err1)
-	}
 
 	fmt.Println("")
 
-	startAnalize(slStInput, iGame)
+	startAnalize(slStInput)
 }
