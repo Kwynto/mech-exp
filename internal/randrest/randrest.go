@@ -1,5 +1,7 @@
 package randrest
 
+// random restrictions
+
 import (
 	"fmt"
 	"math/rand"
@@ -23,7 +25,7 @@ func startGen(slIBadNums []int, iTiket int) {
 			slices.Sort(slIResNum)
 			slIResNum = slices.Compact(slIResNum)
 			if len(slIResNum) >= 5 {
-				s := fmt.Sprint(i, " = ")
+				s := fmt.Sprint(i, " =")
 				fmt.Println(incolor.StringGreen(s), slIResNum)
 				break
 			}
@@ -35,7 +37,7 @@ func Start() {
 	var sBadNums, sTiket string
 	var slIBadNums []int
 
-	fmt.Println(incolor.StringBlue("Формирование случайных номеров из негативного набора для ограничений по отдельным биилетам."))
+	fmt.Println(incolor.StringBlue("Формирование случайных номеров из негативного набора для ограничений по отдельным билетам."))
 	fmt.Println("")
 
 	fmt.Print(incolor.StringMagenta("Кол-во билетов > "))
@@ -60,7 +62,7 @@ func Start() {
 
 	slices.Sort(slIBadNums)
 	slIBadNums = slices.Compact(slIBadNums)
-	fmt.Println(incolor.StringGreen("Сортированные данные: "), slIBadNums)
+	fmt.Println(incolor.StringGreen("Сортированные данные:"), slIBadNums)
 	fmt.Println("")
 
 	startGen(slIBadNums, iTiket)
