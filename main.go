@@ -36,7 +36,7 @@ func info() {
 	fmt.Println(incolor.StringMagenta("4"), "- сделать дефектный анализ")
 	fmt.Println(incolor.StringMagenta("5"), "- негативное повторение")
 	fmt.Println(incolor.StringMagenta("6"), "- балловый анализ")
-	fmt.Println(incolor.StringMagenta("7"), "- волновой анализ")
+	fmt.Println(incolor.StringMagenta("7"), "- направляющие анализа номеров")
 }
 
 func convInsideFormat(sData string) []intypes.TStGame {

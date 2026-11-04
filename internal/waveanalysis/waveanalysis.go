@@ -102,7 +102,7 @@ func startAnalize(slStInput []intypes.TStGame) {
 }
 
 func Start(slStInput []intypes.TStGame) {
-	fmt.Println(incolor.StringBlue("Координаты для графика волнового анализа:"))
+	fmt.Println(incolor.StringBlue("Координаты для графика направляющих анализа номеров:"))
 
 	fmt.Println("")
 
